@@ -10,7 +10,7 @@ class SearchPlayersInput(BaseModel):
     club_name: Optional[str] = Field(None, description="Club name or partial match (e.g., 'Real Madrid', 'Barcelona')")
     position: Optional[str] = Field(None, description="Position code: ST, CAM, CB, LW, RW, CDM, CM, LB, RB, GK")
     club_position: Optional[str] = Field(None, description="Current playing position in squad (may differ from natural positions)")
-    min_age: Optional[int] = Field(None, description="Minimum age")
+    min_age: Optional[int] = Field(None, description="Minimum age ")
     max_age: Optional[int] = Field(None, description="Maximum age")
     min_overall: Optional[int] = Field(None, description="Minimum overall rating (1-99)")
     max_overall: Optional[int] = Field(None, description="Maximum overall rating (1-99)")
