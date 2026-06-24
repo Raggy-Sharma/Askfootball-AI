@@ -23,12 +23,9 @@ export function Squad() {
     if(isLoading) return <div>Loading {clubName} squad...</div>
     if(error) return <div>Error loading {clubName} squad: {error.message}</div>
     return (
-        <div
-            className="relative min-h-0 w-full flex-1"
-        >
-            
-            <h1 className="text-2xl font-bold mb-5">{clubName} Starting XI</h1>
-            <div className="flex h-full flex-col gap-2 overflow-y-auto">
+        <div className="flex h-full min-h-0 w-full flex-col">
+            <h1 className="mb-2 shrink-0 text-lg font-semibold">{clubName} Starting XI</h1>
+            <div className="min-h-0 flex-1">
                 <SquadLayout />
             </div>
         </div>
