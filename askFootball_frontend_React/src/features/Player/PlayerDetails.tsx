@@ -16,11 +16,16 @@ const PlayerDetails = () => {
                 <PlayerFace playerId={selectedPlayer.player_id} variant="details" />
                 <div className="flex flex-col gap-2">
                     <p className="text-sm font-bold">Age: {selectedPlayer.age}</p>
-                    <p className="text-sm font-bold">Position: {selectedPlayer.club_position}</p>
+                    {selectedPlayer.club_position !== 'SUB' && selectedPlayer.club_position !== 'RES' && <p className="text-sm font-bold">Position: {selectedPlayer.club_position}</p>}
                     <p className="text-sm font-bold">Overall: {selectedPlayer.overall}</p>
                     <p className="text-sm font-bold">Potential: {selectedPlayer.potential}</p>
                 </div>
             </div>
+            {(selectedPlayer.club_position === 'SUB' || selectedPlayer.club_position === 'RES') && (
+                <p className="text-sm font-bold mb-4">
+                    Positions: {selectedPlayer.positions.split(', ').join(' | ')}
+                </p>
+            )}
             <div className="flex flex-row flex-wrap gap-4">
                 {
                     Object.keys(coreAttributes).map((key) => (
