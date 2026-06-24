@@ -100,7 +100,15 @@ def get_squad_detailed(
     for p in players:
         attrs = p.attributes
         core = None
+        gk = None
         if attrs:
+            gk = {
+                "diving": attrs.goalkeeping_diving,
+                "handling": attrs.goalkeeping_handling,
+                "kicking": attrs.goalkeeping_kicking,
+                "positioning": attrs.goalkeeping_positioning,
+                "reflexes": attrs.goalkeeping_reflexes
+            }
             core = {
                 "pace": attrs.pace,
                 "shooting": attrs.shooting,
@@ -126,6 +134,7 @@ def get_squad_detailed(
             value_eur=p.value_eur,
             wage_eur=p.wage_eur,
             core_attributes=core,
+            gk_attributes=gk,
             top_roles=[
                 {
                     "role_name": r.role_name,

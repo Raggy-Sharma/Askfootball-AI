@@ -42,6 +42,15 @@ class CoreAttributesSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class GKAttributesSchema(BaseModel):
+    diving: int
+    handling: int
+    kicking: int
+    positioning: int
+    reflexes: int
+
+    class Config:
+        from_attributes = True
 
 class PlaystyleSchema(BaseModel):
     playstyle: str
@@ -85,6 +94,7 @@ class PlayerDetail(BaseModel):
     league_name: Optional[str] = None
     nationality: Optional[str] = None
     core_attributes: Optional[CoreAttributesSchema] = None
+    gk_attributes: Optional[GKAttributesSchema] = None
     playstyles: list[PlaystyleSchema] = []
     roles: list[RoleSchema] = []
 

@@ -3,9 +3,11 @@ import PageHeader from '../features/PageHeader/PageHeader'
 import Bench from '@/features/Squad/Bench'
 import { FullSquad } from '@/features/Squad/FullSquad'
 import useStore from '@/Store'
+import PlayerDetails from '@/features/Player/PlayerDetails'
 
 const AskFootballHome = () => {
   const selectedClub = useStore((state) => state.selectedClub)
+  const selectedPlayer = useStore((state) => state.selectedPlayer)
   return (
     <div className="flex h-screen flex-col">
       <PageHeader />
@@ -28,9 +30,9 @@ const AskFootballHome = () => {
             <FullSquad />
           </div>
         )}
-        {selectedClub && (
+        {selectedPlayer && (
           <div className="min-h-0 overflow-hidden rounded-md p-4">
-            {selectedClub.club_name} top player details loading...
+            <PlayerDetails />
           </div>
         )}
       </div>

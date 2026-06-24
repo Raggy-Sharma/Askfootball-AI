@@ -3,7 +3,7 @@ const VITE_PLAYER_FACE_VERSION_AND_DIMENSION = import.meta.env.VITE_PLAYER_FACE_
 
 type PlayerFaceProps = {
     playerId: number | string
-    variant?: 'pitch' | 'default'
+    variant?: 'pitch' | 'default' | 'details'
 }
 
 const PlayerFace = ({ playerId, variant = 'default' }: PlayerFaceProps) => {
@@ -11,7 +11,7 @@ const PlayerFace = ({ playerId, variant = 'default' }: PlayerFaceProps) => {
     const playerIdSplit1 = append0 ? `0${String(playerId).slice(0, 2)}` : String(playerId).slice(0, 3)
     const playerIdSplit2 = append0 ? String(playerId).slice(2, 6) : String(playerId).slice(3, 6)
     const playerFaceUrl = `${PLAYER_FACE_CDN_BASE_URL}${playerIdSplit1}/${playerIdSplit2}/${VITE_PLAYER_FACE_VERSION_AND_DIMENSION}`
-    const sizeClass = variant === 'pitch' ? 'h-10 w-10' : 'h-12 w-12'
+    const sizeClass = variant === 'pitch' ? 'h-10 w-10' : variant === 'details' ? 'h-34 w-20' : 'h-12 w-12'
 
     return (
         <div className="shrink-0">

@@ -24,6 +24,7 @@ class PlayerSquadEntry(BaseModel):
     value_eur: Optional[int] = None
     wage_eur: Optional[int] = None
     core_attributes: Optional[dict] = None
+    gk_attributes: Optional[dict] = None
     top_roles: list[dict] = []
     playstyles: list[dict] = []
 

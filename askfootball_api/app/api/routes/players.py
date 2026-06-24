@@ -241,6 +241,15 @@ def compare_players(
                     physic=attrs.physic,
                 ) if attrs else None
             ),
+            gk_attributes=(
+                GKAttributesSchema(
+                    diving=attrs.goalkeeping_diving or 0,
+                    handling=attrs.goalkeeping_handling or 0,
+                    kicking=attrs.goalkeeping_kicking or 0,
+                    positioning=attrs.goalkeeping_positioning or 0,
+                    reflexes=attrs.goalkeeping_reflexes or 0,
+                ) if attrs else None
+            ),
             playstyles=player.playstyles or [],
             roles=player.roles or [],
         ))
@@ -318,6 +327,15 @@ def get_player(
                     dribbling=attrs.dribbling,
                     defending=attrs.defending,
                     physic=attrs.physic,
+                ) if attrs else None
+            ),
+            gk_attributes=(
+                GKAttributesSchema(
+                    diving=attrs.goalkeeping_diving or 0,
+                    handling=attrs.goalkeeping_handling or 0,
+                    kicking=attrs.goalkeeping_kicking or 0,
+                    positioning=attrs.goalkeeping_positioning or 0,
+                    reflexes=attrs.goalkeeping_reflexes or 0,
                 ) if attrs else None
             ),
             playstyles=player.playstyles or [],

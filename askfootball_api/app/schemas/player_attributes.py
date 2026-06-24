@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from app.schemas.player import CoreAttributesSchema
+from app.schemas.player import GKAttributesSchema
 
 class AttackingAttributesSchema(BaseModel):
     attacking_crossing: int
@@ -51,6 +52,7 @@ class GoalkeepingAttributesSchema(BaseModel):
 class PlayerAttributes(BaseModel):
     player_id: int
     core_attributes: CoreAttributesSchema
+    gk_attributes: GKAttributesSchema
     attacking_attributes: AttackingAttributesSchema
     skill_attributes: SkillAttributesSchema
     movement_attributes: MovementAttributesSchema

@@ -11,6 +11,8 @@ type Store = {
     setSelectedClubBench: (bench: Player[]) => void,
     selectedClubPlayers: Player[] | null,
     setSelectedClubPlayers: (players: Player[]) => void,
+    selectedPlayer: Player | null,
+    setSelectedPlayer: (player: Player | null) => void,
 }
 
 const useStore = create<Store>((set) => ({
@@ -22,6 +24,8 @@ const useStore = create<Store>((set) => ({
     setSelectedClubBench: (bench: Player[]) => set({ selectedClubBench: bench }),
     selectedClubPlayers: null,
     setSelectedClubPlayers: (players: Player[]) => set({ selectedClubPlayers: players }),
+    selectedPlayer: null,
+    setSelectedPlayer: (player: Player | null) => set({ selectedPlayer: player }),
 }))
 
 export default useStore

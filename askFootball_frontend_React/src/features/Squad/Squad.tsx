@@ -14,12 +14,20 @@ export function Squad() {
     const startingPlayersList = playersList?.filter(player => player.club_position !== 'SUB' && player.club_position !== 'RES')
     const startingXISet = new Set(startingPlayersList)
     const benchPlayersList = playersList?.filter(player => !startingXISet.has(player))
+    const setSelectedPlayer = useStore((state) => state.setSelectedPlayer)
 
     useEffect(() => {
         setSelectedClubPlayers(playersList ?? [])
         setSelectedClubStartingXI(startingPlayersList ?? [])
         setSelectedClubBench(benchPlayersList ?? [])
-    }, [playersList, startingPlayersList, benchPlayersList, setSelectedClubPlayers, setSelectedClubStartingXI, setSelectedClubBench])
+
+        const bestPlayer = startingPlayersList?.length
+            ? startingPlayersList.reduce((best, player) =>
+                best.overall > player.overall ? best : player
+            )
+            : null
+        setSelectedPlayer(bestPlayer)
+    }, [playersList, startingPlayersList, benchPlayersList, setSelectedClubPlayers, setSelectedClubStartingXI, setSelectedClubBench, setSelectedPlayer])
     if(isLoading) return <div>Loading {clubName} squad...</div>
     if(error) return <div>Error loading {clubName} squad: {error.message}</div>
     return (

@@ -7,6 +7,7 @@ import { placePlayersOnPitch } from '@/Utils/CommonUtils'
 const SquadLayout = () => {
     const startingXI = useStore((state) => state.selectedClubStartingXI) ?? []
     const placed = useMemo(() => placePlayersOnPitch(startingXI), [startingXI])
+    const setSelectedPlayer = useStore((state) => state.setSelectedPlayer)
 
     return (
         <div
@@ -21,8 +22,9 @@ const SquadLayout = () => {
             {placed.map(({ player, slot }) => (
                 <div
                     key={player.player_id}
-                    className="flex min-h-0 flex-col items-center justify-center gap-0.5 overflow-hidden"
+                    className="flex min-h-0 flex-col items-center justify-center gap-0.5 overflow-hidden cursor-pointer"
                     style={{ gridRow: slot.row, gridColumn: slot.col }}
+                    onClick={() => setSelectedPlayer(player)}
                 >
                     <PlayerFace playerId={player.player_id} variant="pitch" />
                     <span className="max-w-full truncate text-center text-[10px] font-medium leading-tight">

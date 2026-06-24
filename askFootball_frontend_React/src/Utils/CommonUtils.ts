@@ -4,6 +4,10 @@ export const convertToCamelCase = (str: string) => {
     return str.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())
 }
 
+export const convertToTitleCase = (str: string) => {
+    return str.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase())
+}
+
 export const ATTACK_POS = ["ls","st","rs","lf","cf","rf"]
 
 export const WING_POS = ["lw","rw"]
@@ -129,3 +133,13 @@ export const placePlayersOnPitch = (players: Player[]): PlacedPlayer[] =>
         })
         .filter((entry): entry is PlacedPlayer => entry !== null)
         .sort((a, b) => compareGridSlots(a.slot, b.slot))
+
+
+export const getCoreAttributes = (coreAttributes: any): Record<string, number> => {
+    const attributes = Object.keys(coreAttributes)
+    const normalizedAttributes: Record<string, number> = {}
+    for (const attribute of attributes) {
+        normalizedAttributes[convertToTitleCase(attribute)] = coreAttributes[attribute]
+    }
+    return normalizedAttributes
+}
