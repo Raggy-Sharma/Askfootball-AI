@@ -23,8 +23,8 @@ export function ClubSelector() {
 
     return (
         <div className={`max-h-full overflow-y-auto flex-col gap-4  ${selectedClub ? 'justify-between items-center' : 'justify-center items-center'}`}>
-            <Combobox items={clubsData} onValueChange={(value: string) => handleClubChange(value)}>
-                <ComboboxInput placeholder="Select a club" />
+            <Combobox items={clubsData} autoHighlight value={selectedClub?.club_name} onValueChange={(value: string) => handleClubChange(value)}>
+                <ComboboxInput placeholder="Select a club" showClear/>
                     <ComboboxContent>
                         {isLoading ? <ComboboxEmpty>Loading...</ComboboxEmpty> : <ComboboxEmpty>No items found.</ComboboxEmpty>}
                         <ComboboxList>

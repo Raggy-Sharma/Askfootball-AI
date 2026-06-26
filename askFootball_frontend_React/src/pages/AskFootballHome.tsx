@@ -26,7 +26,7 @@ const AskFootballHome = () => {
           </div>
            : 
           <div className='flex spacearound items-center'>
-            <h2 className='text-md font-bold p-4'>{selectedClub.club_name}</h2>
+            <h2 className='text-md font-bold p-4'>{selectedClub?.club_name}</h2>
             <EditTwoToneIcon onClick={() => setIsEdit(!isEdit)} className='cursor-pointer size-2'/>
           </div>
 
