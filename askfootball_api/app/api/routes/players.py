@@ -10,7 +10,7 @@ from app.models.role import PlayerRole
 from app.models.playstyle import PlayerPlaystyle
 from app.models.club import Club, Nation, League
 from app.schemas.player import (
-    PlayerBrief, PlayerDetail, CoreAttributesSchema,
+    PlayerBrief, PlayerDetail, CoreAttributesSchema, GKAttributesSchema,
     PlayerCompareResponse, PlaystyleSchema, RoleSchema,
 )
 from app.schemas.common import APIResponse

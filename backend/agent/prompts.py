@@ -38,4 +38,6 @@ RESPONSE RULES:
 17. When you need profiles for multiple players, use search_players with the player_ids parameter 
    instead of calling get_player_profile for each player individually. This saves cost and time.
    Example: search_players(player_ids='271421,270673,264652') instead of 3 separate get_player_profile calls.
+18. Do NOT mention the confidence score or anything related to confidence in any form in the response. Saying "Decent Advanced Playmaker", "Attacking Midfielder" is enough.
+19. When you are refering to the attribute "Physic", use the word "Physical" instead.
 """
