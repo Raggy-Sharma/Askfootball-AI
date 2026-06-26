@@ -13,6 +13,12 @@ type Store = {
     setSelectedClubPlayers: (players: Player[]) => void,
     selectedPlayer: Player | null,
     setSelectedPlayer: (player: Player | null) => void,
+    isEdit: boolean,
+    setIsEdit: (isEdit: boolean) => void
+    isAiChatActive: boolean,
+    setIsAIChatActive: (isAiChatActive: boolean) => void,
+    askAIConversation: any,
+    setAskAICoversation: (askAIConversation: any) => void
 }
 
 const useStore = create<Store>((set) => ({
@@ -26,6 +32,13 @@ const useStore = create<Store>((set) => ({
     setSelectedClubPlayers: (players: Player[]) => set({ selectedClubPlayers: players }),
     selectedPlayer: null,
     setSelectedPlayer: (player: Player | null) => set({ selectedPlayer: player }),
+    isEdit: true,
+    setIsEdit: (isEdit: boolean) => set({ isEdit }),
+    isAiChatActive: false,
+    setIsAIChatActive: (isAiChatActive: boolean) => set({ isAiChatActive }),
+    askAIConversation: [],
+    setAskAICoversation: (askAIConversation: any) => set({ askAIConversation }),
+
 }))
 
 export default useStore

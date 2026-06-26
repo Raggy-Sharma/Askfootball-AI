@@ -32,7 +32,6 @@ export function Squad() {
     if(error) return <div>Error loading {clubName} squad: {error.message}</div>
     return (
         <div className="flex h-full min-h-0 w-full flex-col">
-            <h1 className="mb-2 shrink-0 text-lg font-semibold">{clubName} Starting XI</h1>
             <div className="min-h-0 flex-1">
                 <SquadLayout />
             </div>

@@ -26,7 +26,7 @@ const PlayerDetails = () => {
                     Positions: {selectedPlayer.positions.split(', ').join(' | ')}
                 </p>
             )}
-            <div className="flex flex-row flex-wrap gap-4">
+            <div className="grid grid-cols-2 gap-4">
                 {
                     Object.keys(coreAttributes).map((key) => (
                         <p className="text-sm font-bold" key={`${selectedPlayer.player_id}-${key}`}>{key}: {coreAttributes[key]}</p>

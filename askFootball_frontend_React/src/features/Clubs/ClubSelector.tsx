@@ -5,13 +5,18 @@ import useStore from '../../Store'
 
 export function ClubSelector() {
     const { data: clubsData, isLoading, error } = useClubs(50, 0)
+    const setIsEdit = useStore(state => state.setIsEdit)
     const selectedClub = useStore((state) => state.selectedClub)
+    const setAskAIConversation = useStore(state => state.setAskAICoversation)
+
     const setSelectedClub = useStore((state) => state.setSelectedClub)
 
     if (isLoading) return <div>Loading...</div>
     if (error) return <div>Error: {error.message}</div>
 
     const handleClubChange = (value: string) => {
+        setIsEdit(value && false)
+        setAskAIConversation([]);
         const selectedClub = clubsData?.find((club: Club) => club.club_name === value) ?? null
         setSelectedClub(selectedClub as Club)
     }

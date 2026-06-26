@@ -216,3 +216,5 @@ db/*
 
 .DS_Store
 askfootball_api/FC26.db
+FC26.db
+askFootball_frontend_React/package-lock.json
