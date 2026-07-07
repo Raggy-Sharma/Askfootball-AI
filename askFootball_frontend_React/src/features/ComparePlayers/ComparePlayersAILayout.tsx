@@ -3,7 +3,6 @@ import { RenderAIResponse } from "../AskAI/RenderAIResponse";
 import PlayerDetails from "../Player/PlayerDetails";
 import { useEffect } from "react";
 import { PlayerSilhouette } from "../Player/PlayerSilhouette";
-import { toTitleCase } from "@/Utils/CommonUtils"
 export function ComparePlayersAILayout ({referencedPlayers}) {
     const isComparePlayersPending = useStore(state => state.isComparePlayersPending)
     const comparePlayersThread = useStore(state => state.comparePlayersThread) ?? []
@@ -48,20 +47,42 @@ export function ComparePlayersAILayout ({referencedPlayers}) {
                             </div> 
                         </> :
                     comparePlayersThread[1]?.referencedPlayers?.map(player => (
-                        <div className="w-1/2 h-100">
+                        <div className="w-1/2" key={player.player_id}>
                             <PlayerDetails playerDetails={player}>
-                                <div className="grid grid-cols-3">
+                                {/* Top row: rating/position (left) + positions box (right) */}
+                                <div className="flex items-start justify-between mb-4">
                                     <div className="flex flex-col gap-4">
-                                        <div className="text-4xl font-bold">
-                                            {player.overall} | {player.positions}
-                                        </div>
-                                        <div>
-                                            <p className="text-xs font-bold">{player.display_name}</p> | <p className="text-xs">{player.nationality}</p>
+                                        <PlayerDetails.RatingPosition />
+                                        <PlayerDetails.NameAndCountry titleSize={"text-3xl font-bold"} showFulName={true}/>
+                                    </div>
+                                    <div className="w-auto">
+                                        <PlayerDetails.Positions />
+                                    </div>
+                                </div>
+                    
+                                {/* Name/country (left) + face (right) */}
+                                <div className="flex items-center justify-between mb-4 gap-4">
+                                    <div className="flex flex-col gap-10 w-1/2">
+                                        <PlayerDetails.Summary />
+                                        <div className="flex flex-col gap-3 rounded-md border border-green-400/40 bg-green-400/5 p-3">
+                                            <PlayerDetails.MarketInfo />
                                         </div>
                                     </div>
-                                    <div className="col-span-2 justify-self-center">
-                                        <PlayerDetails.PlayerFace variant={"compare"} imageDimension={"26_240.png"}/>
+                                    <div className="flex flex-col gap-4 w-1/2">
+                                        <PlayerDetails.PlayerFace variant="compare" imageDimension="26_240.png" />
+                                        <PlayerDetails.Bio textSize={"text-xs"} variant="compare"/>
+                                        <PlayerDetails.SkillMoves />
+                                        <PlayerDetails.WeakFoot />
+                                        <PlayerDetails.Playstyles />
                                     </div>
+                                </div>
+                    
+                                {/* Bio row */}
+                                <div className="mb-4">
+                                </div>
+                    
+                                {/* Summary (left) + Skills/Weakfoot/Playstyles/Market (right) */}
+                                <div className="grid grid-cols-2 gap-4">
                                 </div>
                             </PlayerDetails>
                         </div>

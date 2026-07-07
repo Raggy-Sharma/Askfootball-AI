@@ -243,3 +243,12 @@ export function toTitleCase(str: string) {
       .slice(0, 3);
     return hasPlus ? `${initials}+` : initials;
   }
+
+  // add to CommonUtils.ts
+export function cmToFeetInches(cm?: number): string {
+    if (!cm) return "—";
+    const totalInches = cm / 2.54;
+    const feet = Math.floor(totalInches / 12);
+    const inches = Math.round(totalInches % 12);
+    return `${feet}'${inches}"`;
+  }

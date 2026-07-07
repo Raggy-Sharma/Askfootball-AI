@@ -6,7 +6,7 @@ import useStore from '@/Store'
 import PlayerDetails from '@/features/Player/PlayerDetails'
 import AskAI from '@/features/AskAI/AskAI'
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import { useShallow } from 'zustand/react/shallow';
+import { useEffect } from 'react'
 
 const AskFootballHome = () => {
   const selectedClub = useStore((state) => state.selectedClub)
@@ -92,8 +92,18 @@ const AskFootballHome = () => {
             <div className={`${ isAiChatActive ? 'flex h-full min-h-0 flex-row' :  'flex h-full min-h-0 flex-col'}  overflow-hidden rounded-md`}>
               <div className="min-h-0 overflow-hidden rounded-md p-4">
                 <PlayerDetails playerDetails={selectedPlayer}>
-                  <PlayerDetails.Title />
-                  <PlayerDetails.PlayerFace imageSize={undefined} />
+                  <div className="flex items-center justify-between mb-4">
+                    <PlayerDetails.RatingPosition />
+                    <div className="w-1/2"><PlayerDetails.Positions /></div>
+                  </div>
+                  <PlayerDetails.Title titleString={selectedPlayer.display_name} titleSize={"text-md font-extrabold"}/>
+                  <div className="flex items-start justify-around gap-10">
+                    <div className="flex flex-col gap-4 items-center w-1/2">
+                      <PlayerDetails.PlayerFace variant="details" />
+                      <PlayerDetails.Bio variant="details" textSize={"text-[9px]"}/>
+                    </div>
+                    <PlayerDetails.Summary />
+                  </div>
                 </PlayerDetails>
               </div>
               <div className="min-h-0 overflow-hidden rounded-md p-4 w-3/4">
