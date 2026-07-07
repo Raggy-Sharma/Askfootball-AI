@@ -19,6 +19,10 @@ type Store = {
     setIsAIChatActive: (isAiChatActive: boolean) => void,
     askAIConversation: any,
     setAskAICoversation: (askAIConversation: any) => void
+    isComparePlayersPending: boolean;
+    setIsComparePlayersPending: (isComparePlayersPending: boolean) => void
+    comparePlayersThread: any;
+    setComparePlayersThread: (comparePlayersQuestion: any) => void 
 }
 
 const useStore = create<Store>((set) => ({
@@ -38,6 +42,10 @@ const useStore = create<Store>((set) => ({
     setIsAIChatActive: (isAiChatActive: boolean) => set({ isAiChatActive }),
     askAIConversation: [],
     setAskAICoversation: (askAIConversation: any) => set({ askAIConversation }),
+    isComparePlayersPending: false,
+    setIsComparePlayersPending: (isComparePlayersPending: boolean) => set({ isComparePlayersPending }),
+    comparePlayersThread: [],
+    setComparePlayersThread: (comparePlayersThread: []) => set({ comparePlayersThread })
 
 }))
 

@@ -22,7 +22,7 @@ router = APIRouter(
 @router.get("", response_model=APIResponse[list[ClubBrief]])
 def list_clubs(
     league_name: Optional[str] = Query(None),
-    limit: int = Query(50, ge=1, le=200),
+    limit: int = Query(50, ge=1, le=1000),   # default stays 50, max raised to 1000
     offset: int = Query(0, ge=0),
     db: Session = Depends(get_db),
 ):
@@ -32,7 +32,12 @@ def list_clubs(
             League.league_name.ilike(f"%{league_name}%")
         )
     total = query.count()
-    clubs = query.offset(offset).limit(limit).all()
+    clubs = (
+        query.order_by(Club.club_name)   # alphabetical sort
+        .offset(offset)
+        .limit(limit)
+        .all()
+    )
     return APIResponse(
         data=[
             ClubBrief(

@@ -143,3 +143,103 @@ export const getCoreAttributes = (coreAttributes: any): Record<string, number> =
     }
     return normalizedAttributes
 }
+
+export function getContextualQuestions(clubPosition: string) {
+    const base = [
+        { key: "q_importance", displayValue: "How important is this player?", value: "How important is this player in this team?" },
+        { key: "q_fit", displayValue: "How well does this player fit?", value: "How well does this player fit in this team?" },
+    ];
+
+    const GK = ['GK'];
+    const DEF = ['LB', 'LCB', 'CB', 'RCB', 'RB', 'LWB', 'RWB'];
+    const MID = ['LDM', 'CDM', 'RDM', 'LM', 'LCM', 'CM', 'RCM', 'RM', 'CAM', 'LAM', 'RAM'];
+    const FWD = ['LW', 'RW', 'LF', 'CF', 'RF', 'LS', 'ST', 'RS'];
+
+    if (GK.includes(clubPosition)) {
+        base.push({ key: "q_gk", displayValue: "Find a backup goalkeeper", value: "Suggest a backup goalkeeper for this team within a reasonable budget" });
+    } else if (DEF.includes(clubPosition)) {
+        base.push({ key: "q_def", displayValue: "Who can cover this defensive role?", value: "Which players in this squad can cover this player's defensive role if injured?" });
+        base.push({ key: "q_def2", displayValue: "Find a defensive signing", value: "Suggest a young defender who could strengthen this position" });
+    } else if (MID.includes(clubPosition)) {
+        base.push({ key: "q_mid", displayValue: "Find a midfield replacement", value: "Suggest a young central midfielder who could replace this player" });
+        base.push({ key: "q_mid2", displayValue: "Who partners well here?", value: "Which midfielders in this squad partner well with this player?" });
+    } else if (FWD.includes(clubPosition)) {
+        base.push({ key: "q_fwd", displayValue: "Find a backup striker/winger", value: "Suggest a young attacker who could back up this player" });
+        base.push({ key: "q_fwd2", displayValue: "Who supplies this player?", value: "Which players in this squad create the most chances for this player?" });
+    }
+
+    return base;
+}
+
+export function linkifyPlayers(markdown: string, players: Player[]): string {
+    if (!players?.length) return markdown;
+    // Longest names first, so "Joan García" matches before "García"
+    const sorted = [...players].sort(
+        (a, b) => b.display_name.length - a.display_name.length
+    );
+    let result = markdown;
+    for (const player of sorted) {
+        const escaped = player.display_name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // \b word boundary; avoid double-wrapping already-linked text
+        const regex = new RegExp(`(?<!\\]\\()\\b(${escaped})\\b`, 'g');
+        result = result?.replace(regex, `[$1](afplayer:${player.player_id})`);
+    }
+    return result;
+}
+
+export function getConversationId (conversationType: "question" | "response") {
+    return `${conversationType}-${crypto.randomUUID()}`
+}
+
+export function getImageSizeAndStyleClass(variant: "details" | "pitch" | "compare" | "default") {
+    switch (variant) {
+        case "details":
+            return "h-34 w-20 rounded-full "
+        case "pitch": 
+            return "h-12 w-12 rounded-full"
+        case "compare": 
+            return "h-auto w-auto"
+        default:
+            return "h-12 w-12 rounded-full";
+    }
+}
+
+export function toTitleCase(str: string) {
+    if (!str) return '';
+  
+    return str
+      // 1. Insert a space before any uppercase letter (handles camelCase)
+      .replace(/([A-Z])/g, ' $1')
+      // 2. Replace underscores with spaces (handles snake_case)
+      .replace(/_/g, ' ')
+      // 3. Trim extra spaces
+      .trim()
+      // 4. Capitalize the first letter of each word and lowercase the rest
+      .split(/\s+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+
+  export function formatCurrency(value?: number): string {
+    if (value == null) return "—";
+    if (value >= 1_000_000) return `€${(value / 1_000_000).toFixed(1)}M`;
+    if (value >= 1_000) return `€${(value / 1_000).toFixed(0)}K`;
+    return `€${value}`;
+  }
+  
+  export function formatWage(value?: number): string {
+    if (value == null) return "—";
+    return `${formatCurrency(value)}/wk`;
+  }
+  
+  // Initials for playstyle badges, e.g. "Quick Step+" -> "QS+"
+  export function playstyleInitials(name: string): string {
+    const hasPlus = name.trim().endsWith("+");
+    const base = name.replace(/\+$/, "").trim();
+    const initials = base
+      .split(/\s+/)
+      .map(w => w[0]?.toUpperCase())
+      .join("")
+      .slice(0, 3);
+    return hasPlus ? `${initials}+` : initials;
+  }

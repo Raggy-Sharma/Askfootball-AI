@@ -4,7 +4,7 @@ import { ThemeProvider } from './Contexts/ThemeContext'
 
 function App() {
   return (
-    <div className="body">
+    <div className="body bg-background">
       <QueryProvider>
         <ThemeProvider>
           <AskFootballHome />

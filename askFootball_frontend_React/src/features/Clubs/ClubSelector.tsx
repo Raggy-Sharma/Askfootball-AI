@@ -4,9 +4,10 @@ import type { Club } from './Clubs.types'
 import useStore from '../../Store'
 
 export function ClubSelector() {
-    const { data: clubsData, isLoading, error } = useClubs(50, 0)
+    const { data: clubsData, isLoading, error } = useClubs(1000, 0)
     const setIsEdit = useStore(state => state.setIsEdit)
     const selectedClub = useStore((state) => state.selectedClub)
+    const setIsAIChatActive = useStore(state => state.setIsAIChatActive)
     const setAskAIConversation = useStore(state => state.setAskAICoversation)
 
     const setSelectedClub = useStore((state) => state.setSelectedClub)
@@ -16,6 +17,7 @@ export function ClubSelector() {
 
     const handleClubChange = (value: string) => {
         setIsEdit(value && false)
+        setIsAIChatActive(false)
         setAskAIConversation([]);
         const selectedClub = clubsData?.find((club: Club) => club.club_name === value) ?? null
         setSelectedClub(selectedClub as Club)
